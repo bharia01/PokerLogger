@@ -1,0 +1,34 @@
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin: 1rem 0;
+    transition: transform 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-3px);
+  }
+  
+  .cardTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .cardContent {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .cardActions {
+    margin-top: 1rem;
+  }
+  
+  .cardActions a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+  
