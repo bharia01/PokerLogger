@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -25,7 +27,12 @@ const Navbar = () => {
           <Link to="/groups" onClick={() => setIsOpen(false)}>Groups</Link>
         </li>
         <li>
-          <Link to="/players" onClick={() => setIsOpen(false)}>Players</Link>
+          <Link to="/games" onClick={() => setIsOpen(false)}>Games</Link>
+        </li>
+        <li>
+        {user?.role === 'admin' && (
+          <Link to="/admin/players" className="hover:underline">All Players</Link>
+        )}
         </li>
       </ul>
     </nav>

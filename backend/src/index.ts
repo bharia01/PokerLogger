@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import playerRoutes from './routes/players';
 import groupRoutes from './routes/groups';
 import gameRoutes from './routes/games';
+import authRoutes from './routes/auth';
 
 // Load environment variables from .env
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(express.json()); // Parse JSON request bodies
 app.use('/api/players', playerRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/games', gameRoutes);
+app.use('/api/auth', authRoutes);
 
 // Connect to MongoDB and start the server
 mongoose

@@ -1,37 +1,62 @@
-import { useParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
-import api from '../api/api';
-import styles from '../components/Card.module.css';
+import { apiFetch } from '../api/api';
+import './GamePage.css';
 
-const GamePage = () => {
-  const { groupId } = useParams<{ groupId: string }>();
-  const [games, setGames] = useState([]);
+interface Game {
+  _id: string;
+  groupName: string;
+  gameDescription: string;
+  players: {
+    playerId: string;
+    playerName: string;
+    buyIn: number;
+    payOut: number;
+  }[];
+}
+
+const GamesPage = () => {
+  const { user } = useAuth();
+  const [games, setGames] = useState<Game[]>([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!groupId) return;
+    const loadGames = async () => {
+      try {
+        const allGames = await apiFetch('/api/games', 'GET', undefined, localStorage.getItem('token') || '');
+        const userGames = allGames.filter((game: Game) =>
+          game.players.some((p) => p.playerId === user?._id)
+        );
+        setGames(userGames);
+      } catch (err: any) {
+        setError(err.message || 'Failed to load games.');
+      }
+    };
 
-    api.get(`/games/by-group/${groupId}`)
-      .then(res => setGames(res.data))
-      .catch(err => console.error('Error loading games:', err));
-  }, [groupId]);
+    if (user?._id) loadGames();
+  }, [user]);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Games for Group: {groupId}</h2>
-      {games.map((game: any) => (
-        <div className={styles.card} key={game.gameId}>
-          <div className={styles.cardTitle}>{game.gameDescription}</div>
-          <div className={styles.cardContent}>
-            {game.players.map((p: any, i: any) => (
-              <div key={i}>
-                <strong>{p.playerName}</strong> — Buy In: {p.buyIn}, Payout: {p.payOut}
-              </div>
-            ))}
+    <div className="games-container">
+      <h2>Your Games</h2>
+      {error && <p className="error">{error}</p>}
+      <div className="games-list">
+        {games.map((game) => (
+          <div key={game._id} className="game-card">
+            <h3>{game.gameDescription}</h3>
+            <p><strong>Group:</strong> {game.groupName}</p>
+            <ul>
+              {game.players.map((p) => (
+                <li key={p.playerId}>
+                  {p.playerName} — Buy-in: ${p.buyIn}, Payout: ${p.payOut}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
 
-export default GamePage;
+export default GamesPage;

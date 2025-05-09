@@ -1,0 +1,25 @@
+.group-detail-container {
+    padding: 2rem;
+    background: white;
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .group-detail-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .group-detail-container p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .error {
+    color: red;
+    padding: 1rem;
+    text-align: center;
+  }
+  

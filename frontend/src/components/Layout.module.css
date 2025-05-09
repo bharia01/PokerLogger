@@ -1,14 +1,12 @@
 .layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-color: #f4f6f8;
+  background-color: white;
   width: 100vw; /* ensure full width */
+  height: 100vh; /* ensure full height */
   overflow-x: hidden; /* prevent overflow scroll */
 }
 
 .content {
-  flex-grow: 1;
-  padding: 2rem;
   margin-top: 60px; /* offset for fixed navbar */
 }

@@ -2,7 +2,6 @@ import { model, Schema } from "mongoose";
 
 const playerSchema = new Schema({
     name: String,
-    phone: String,
     email: String,
     _id: String,
     groups: [String], // group IDs
@@ -13,7 +12,6 @@ const playerSchema = new Schema({
       totalEarnings: Number,
       totalBuyIns: Number,
       totalPayOuts: Number,
-    },
-});
+    }}, { versionKey: false });
 
 export default model('Player', playerSchema);

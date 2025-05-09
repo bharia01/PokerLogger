@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import Group from '../models/groupsSchema';
-import { ObjectId } from 'mongodb';
 
-export const createGroup = async (req: Request, res: Response) => {
+export const createGroup = async (req: Request, res: any) => {
   try {
     const newGroup = new Group(req.body);
     const savedGroup = await newGroup.save();
@@ -12,7 +11,7 @@ export const createGroup = async (req: Request, res: Response) => {
   }
 };
 
-export const getGroupById = async (req: Request, res: Response) => {
+export const getGroupById = async (req: Request, res: any) => {
   try {
     const { groupId } = req.params;
     const group = await Group.findOne({ groupId });
@@ -22,7 +21,7 @@ export const getGroupById = async (req: Request, res: Response) => {
   }
 };
 
-export const getGroup = async (req: Request, res: Response): Promise<void> => {
+export const getGroup = async (req: Request, res: any): Promise<void> => {
   try {
     const group = await Group.find();
     res.json(group);
@@ -32,12 +31,12 @@ export const getGroup = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const deleteGroup = async (req: Request, res: Response): Promise<void> => {
+export const deleteGroup = async (req: Request, res: any): Promise<void> => {
   try {
     const player = await Group.findById({
-      _id: new ObjectId(req.params.id),
+      _id: req.params.id,
     });
-    await Group.deleteOne({ _id: new ObjectId(req.params.id) });
+    await Group.deleteOne({ _id: req.params.id });
     res.status(200).json({ message: 'Group deleted' });
   } catch (error) {
     res.status(500).json({ error: 'Error deleting group' });

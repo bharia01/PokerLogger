@@ -13,7 +13,7 @@ const gameSchema = new Schema({
     ],
     gameDescription: String,
     gameDate: Date,
-});
+}, { versionKey: false });
 
 export default model('Game', gameSchema);
   

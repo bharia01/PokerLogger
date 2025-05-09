@@ -7,7 +7,6 @@ const MONGO_CLIENT = process.env.MONGO_CLIENT || 'mongodb://localhost:27017/poke
 
 const playerSchema = new mongoose.Schema({
   name: String,
-  phone: String,
   email: String,
   _id: String,
   groups: [String], // group IDs
@@ -52,7 +51,6 @@ const players = [
   {
     _id: 'player1',
     name: 'Alice Nguyen',
-    phone: '555-123-4567',
     email: 'alice@example.com',
     groups: ['group1'],
     games: ['game1', 'game2'],
@@ -67,7 +65,6 @@ const players = [
   {
     _id: 'player2',
     name: 'Ben Jackson',
-    phone: '555-987-6543',
     email: 'ben@example.com',
     groups: ['group1', 'group2'],
     games: ['game1', 'game2', 'game3'],
@@ -82,7 +79,6 @@ const players = [
   {
     _id: 'player3',
     name: 'Carla Gomez',
-    phone: '555-765-4321',
     email: 'carla@example.com',
     groups: ['group1'],
     games: ['game1', 'game2'],

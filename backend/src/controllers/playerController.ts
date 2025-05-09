@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import Player from '../models/playersSchema';
-import { ObjectId } from 'mongodb';
 
-export const createPlayer = async (req: Request, res: Response) => {
+export const createPlayer = async (req: Request, res: any) => {
   try {
     const player = await Player.create(req.body);
     res.status(200).json(player);
@@ -11,7 +10,7 @@ export const createPlayer = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllPlayers = async (req: Request, res: Response) => {
+export const getAllPlayers = async (req: Request, res: any) => {
   try {
     const players = await Player.find();
     res.json(players);
@@ -20,11 +19,11 @@ export const getAllPlayers = async (req: Request, res: Response) => {
   }
 };
 
-export const getPlayer = async (req: Request, res: Response): Promise<void> => {
+export const getPlayer = async (req: Request, res: any): Promise<void> => {
   try {
     const { _id } = req.params;
     const player = await Player.findById({
-      _id: new ObjectId(_id),
+      _id,
     });
     res.json(player);
   } catch (err) {
@@ -32,11 +31,11 @@ export const getPlayer = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const deletePlayer = async (req: Request, res: Response): Promise<void> => {
+export const deletePlayer = async (req: Request, res: any): Promise<void> => {
   try {
     const { _id } = req.params;
     const player = await Player.findById({
-      _id: new ObjectId(_id),
+      _id,
     });
     await Player.deleteOne({ player });
     res.status(200).json({ message: 'Player deleted' });

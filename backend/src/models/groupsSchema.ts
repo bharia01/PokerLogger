@@ -6,6 +6,6 @@ const groupSchema = new Schema({
     groupName: String,
     games: [String], // game IDs
     dateCreated: Date,
-});
+}, { versionKey: false });
 
 export default model('Group', groupSchema);

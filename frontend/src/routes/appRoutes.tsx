@@ -1,18 +1,30 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PlayerSummaryPage from '../pages/PlayerSummaryPage';
-import GroupSummaryPage from '../pages/GroupSummaryPage';
-import GamePage from '../pages/GamePage';
-import GroupDetailPage from '../pages/GroupDetailPage';
+import { Routes, Route } from 'react-router-dom';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
+import HomePage from '../pages/HomePage';
+import AllPlayersPage from '../pages/AllPlayersPage';
+import AdminRoute from '../components/AdminRoute';
 
-export default function AppRoutes() {
+const AppRoutes = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<PlayerSummaryPage />} />
-        <Route path="/" element={<GroupSummaryPage />} />
-        <Route path="/" element={<GamePage />} />
-        <Route path="/groups/:groupId" element={<GroupDetailPage />} />
-      </Routes>
-    </Router>
+    <Routes>
+      {/* Public routes */}
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+
+      {/* Admin-only route */}
+      <Route
+        path="/admin/players"
+        element={
+          <AdminRoute>
+            <AllPlayersPage />
+          </AdminRoute>
+        }
+      />
+    </Routes>
   );
-}
+};
+
+export default AppRoutes;
+
